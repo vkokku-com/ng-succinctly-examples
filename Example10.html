@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Example10</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container" ng-controller="controllerOne">
+        <h2>Sharing Code between Controllers using Services</h2>
+        <hr/>
+        <h3>Users</h3>
+        <ul>
+            <li ng-repeat="user in usersList">{{user}}</li>
+        </ul>
+        <div ng-controller="NestedController">
+            <h4>First User:{{firstUser}}</h4>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.factory('UserService', [function() {
+        var users = ['Venkat', 'Sai', 'Kiran'];
+        return {
+            allUsers: function() {
+                return users;
+            },
+            firstUser: function() {
+                return users[0];
+            }
+        };
+    }])
+    app.controller('controllerOne', ['$scope', 'UserService', function($scope, UserService) {
+        $scope.usersList = UserService.allUsers();
+    }]);
+    app.controller('NestedController', ['$scope', 'UserService', function($scope, UserService) {
+        $scope.firstUser = UserService.firstUser();
+    }]);
+    </script>
+</body>
+
+</html>
