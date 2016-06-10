@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Example18</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container" ng-controller="controllerOne">
+        <h2>Directive-to-Directive Communication</h2>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-12">
+                <basket apple orange>Roll over here and check the console</basket>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var app = angular.module('myApp', []);
+
+    app.directive('basket', function() {
+
+        return {
+            restrict: "E",
+            controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+                $scope.content = [];
+                this.addApple = function() {
+                    $scope.content.push('apple');
+                };
+                this.addOrange = function() {
+                    $scope.content.push('orange');
+                }
+            }],
+
+            link: function(scope, element, attributes) {
+                element.bind('mouseenter', function() {
+                    console.log(scope.content);
+                });
+            }
+
+        }
+    });
+
+    app.directive('apple', function() {
+        return {
+            require: 'basket',
+            link: function(scope, element, attributes, basketCtrl) {
+                basketCtrl.addApple();
+            }
+        }
+    });
+
+    app.directive('orange', function() {
+        return {
+            require: 'basket',
+            link: function(scope, element, attributes, basketCtrl) {
+                basketCtrl.addOrange();
+            }
+        }
+    });
+
+    app.controller('controllerOne', ['$scope', function($scope) {
+
+    }]);
+    </script>
+</body>
+
+</html>
