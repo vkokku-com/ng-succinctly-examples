@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Example17</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container" ng-controller="controllerOne">
+        <h2>Repeatedly Rendering Directive's DOM Node Children</h2>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-12">
+                <repeat-ntimes repeat="10">
+                    <h3>Heading</h3>
+                    <p>This is para</p>
+                </repeat-ntimes>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var app = angular.module('myApp', []);
+
+    app.directive('repeatNtimes', function() {
+
+        return {
+            restrict: "E",
+            compile: function(tElement, attributes) {
+                var content = tElement.children();
+                for (var i = 0; i < attributes.repeat; i++) {
+                    tElement.append(content.clone());
+                }
+                return function(scope, element, attributes) {
+                    console.log(element);
+                    element.on('click', 'h3', function() {
+                        $(this).css({
+                            'background-color': '#f4f4f4',
+                            'padding': '10px'
+                        });
+                    });
+                }
+            }
+
+        }
+    });
+
+    app.controller('controllerOne', ['$scope', function($scope) {
+
+    }]);
+    </script>
+</body>
+
+</html>
