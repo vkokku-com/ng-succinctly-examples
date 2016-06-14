@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='myApp'>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -12,17 +12,40 @@
 </head>
 
 <body>
-    <div class="container" ng-controller="controllerOne">
-        <h2>Responding to Click Events using Controllers</h2>
-        <hr/>
+    <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <button class="btn btn-info" ng-click="toggle()">Click Here</button>
+            <div class="col-lg-6" ng-app='myApp' ng-controller="controllerOne">
+                <h2>Responding to Click Events using Controllers</h2>
+                <hr/>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-info" ng-click="toggle()">Click Here</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 ng-hide='visible'>Hello World</h3>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 ng-hide='visible'>Hello World</h3>
+            <div class="col-lg-6">
+                <h3>View</h3>
+                <div class="well" style="font-family:monospace">
+                    &lt;button class="btn btn-info" ng-click="toggle()"&gt;Click Here&lt;/button&gt;
+                    <br/>
+                    <br/>&lt;h3 ng-hide='visible'&gt;Hello World&lt;/h3&gt;
+                </div>
+                <h3>Script</h3>
+                <div class="well" style="font-family:monospace">
+                    var app = angular.module('myApp', []);
+                    <br/>
+                    <br/>app.controller('controllerOne', ['$scope', function($scope) {
+                    <br/>&nbsp;$scope.visible = true;
+                    <br/>&nbsp;$scope.toggle = function() {
+                    <br/>&nbsp;&nbsp;&nbsp;$scope.visible = !$scope.visible;
+                    <br/>&nbsp;};
+                    <br/>}]);
+                </div>
             </div>
         </div>
     </div>

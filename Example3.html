@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='myApp'>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -12,17 +12,28 @@
 </head>
 
 <body>
-    <div class="container" ng-controller="controllerOne">
-        <h2>Converting Expression Output with Filters</h2>
-        <hr/>
+    <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <input type="text" ng-model="name" placeholder="Enter your name" />
+            <div class="col-lg-6" ng-app='myApp' ng-controller="controllerOne">
+                <h3>Converting Expression Output with Filters</h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" ng-model="name" placeholder="Enter your name" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3> Hello...{{name | uppercase}}!</h3>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h3> Hello...{{name | uppercase}}!</h3>
+            <div class="col-lg-6">
+                <h3>View</h3>
+                <div class="well" style="font-family:monospace">
+                    &lt;input type="text" ng-model="name" placeholder="Enter your name" /&gt;
+                    <br> &lt;h3&gt; Hello...{{name | uppercase}}!&lt;/h3&gt;
+                </div>
             </div>
         </div>
     </div>
