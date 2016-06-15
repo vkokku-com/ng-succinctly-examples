@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Example23</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6" ng-app='myApp' ng-controller="controllerOne">
+                <h3>Chaining Filters Together</h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div ng-init="names =['Sai','Kiran','Kokku','Venkata']">
+                            <ul>
+                                <li ng-repeat="name in names|exclude: 'Kokku'|sortAscending">{{ name }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3>View</h3>
+                <div class="well" style="font-family:monospace">
+                    &lt;div ng-init="names =['Sai','Kiran','Kokku','Venkata']"&gt;
+                    <br>&nbsp; &lt;ul&gt;
+                    <br>&nbsp;&nbsp; &lt;li ng-repeat="name in names|exclude: 'Kokku'|sortAscending">
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;{{name}}&lt;/li&gt;
+                    <br>&nbsp;&lt;/ul&gt;
+                    <br>&lt;/div&gt;
+                </div>
+                <h3>Script</h3>
+                <div class="well" style="font-family:monospace">
+                    <pre>
+                var app = angular.module('myApp', []);
+                app.controller('controllerOne', ['$scope', function($scope) {}]);
+                app.filter('exclude', function() {
+                    return function(input, exclude) {
+                        var result = [];
+                        for (var i = 0; i < input.length; i++) {
+                            if (input[i] !== exclude) {
+                                result.push(input[i]);
+                            }
+                        }
+                        return result
+                    }
+
+                });
+                app.filter('sortAscending', function() {
+                    return function(input) {
+                        return input.sort();
+                    }
+                });
+                </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var app = angular.module('myApp', []);
+
+    app.controller('controllerOne', ['$scope', function($scope) {
+
+    }]);
+    app.filter('exclude', function() {
+        return function(input, exclude) {
+            var result = [];
+            for (var i = 0; i < input.length; i++) {
+                if (input[i] !== exclude) {
+                    result.push(input[i]);
+                }
+            }
+            return result
+        }
+
+    });
+    app.filter('sortAscending', function() {
+        return function(input) {
+            return input.sort();
+        }
+    });
+    </script>
+</body>
+
+</html>
