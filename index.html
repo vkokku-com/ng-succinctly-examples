@@ -26,100 +26,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in list track by $index">
-                            <td>{{$index+1}}</td>
+                        <tr ng-repeat="item in list | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+                            <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
                             <td>
                                 <a href="{{item.link}}">view&nbsp;<span class="glyphicon glyphicon-eye-open"></span></a>
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <td colspan="3">
+                            <div>
+                                <ul class="pagination">
+                                    <li ng-class="prevPageDisabled()"> <a href ng-click="prevPage()">« Prev</a> </li>
+                                    <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)"> <a href="#">{{n+1}}</a> </li>
+                                    <li ng-class="nextPageDisabled()"> <a href ng-click="nextPage()">Next »</a> </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-    var app = angular.module('myApp', []);
-    app.controller('mainController', ['$scope', function($scope) {
-        $scope.list = [{
-            name: 'Binding a Text Input to an Expression',
-            link: 'Example1.html'
-        }, {
-            name: 'Responding to Click Events using Controllers',
-            link: 'Example2.html'
-        }, {
-            name: 'Converting Expression Output with Filters',
-            link: 'Example3.html'
-        }, {
-            name: 'Creating Custom HTML Elements with Directives',
-            link: 'Example4.html'
-        }, {
-            name: 'Assigning a Default Value to a Model',
-            link: 'Example5.html'
-        }, {
-            name: 'Changing a Model Value with a Controller Function',
-            link: 'Example6.html'
-        }, {
-            name: 'Encapsulating a Model Value with a Controller Function',
-            link: 'Example7.html'
-        }, {
-            name: 'Responding to Scope Changes',
-            link: 'Example8.html'
-        }, {
-            name: 'Sharing Models between Nested Controllers',
-            link: 'Example9.html'
-        }, {
-            name: 'Sharing Code between Controllers using Services',
-            link: 'Example10.html'
-        }, {
-            name: 'Testing Controllers',
-            link: 'Example11.html'
-        }, {
-            name: 'Enabling/Disabling DOM Elements Conditionally',
-            link: 'Example12.html'
-        }, {
-            name: 'Changing the DOM in Response to User Actions',
-            link: 'Example13.html'
-        }, {
-            name: 'Rendering an HTML Snippet in a Directive',
-            link: 'Example14.html'
-        }, {
-            name: "Rendering a Directive's DOM Node Children",
-            link: 'Example15.html'
-        }, {
-            name: 'Passing Configuration Params Using HTML Attributes',
-            link: 'Example16.html'
-        }, {
-            name: 'Passing Configuration Params Using HTML Attributes-Isolated Scope',
-            link: 'Example16A.html'
-        }, {
-            name: "Repeatedly Rendering Directive's DOM Node Children",
-            link: 'Example17.html'
-        }, {
-            name: 'Directive-to-Directive Communication',
-            link: 'Example18.html'
-        }, {
-            name: 'Testing Directives',
-            link: 'Example19.html'
-        }, {
-            name: 'Implementing a Custom Filter to Revert an Input String',
-            link: 'Example20.html'
-        }, {
-            name: 'Passing Configuration Params to Filters',
-            link: 'Example21.html'
-        }, {
-            name: 'Filtering a List of DOM Nodes',
-            link: 'Example22.html'
-        }, {
-            name: 'Chaining Filters Together',
-            link: 'Example23.html'
-        }, {
-            name: 'Testing Filters',
-            link: 'Example24.html'
-        }];
-
-    }]);
-    </script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>
